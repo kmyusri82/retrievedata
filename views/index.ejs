@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pico Pi Temperature</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1>Pico Pi Temperature</h1>
+  
+  <form action="/" method="get">
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" value="<%= startDate %>">
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" value="<%= endDate %>">
+    <button type="submit">Update</button>
+  </form>
+
+  <canvas id="myChart"></canvas>
+
+  <script>
+    // Set up Chart.js
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [<%- labels.join(',') %>],
+        datasets: [{
+          label: 'Value 1',
+          data: [<%- data1.join(',') %>],
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          xAxes: [{
+            type: 'time',
+            time: {
+              unit: 'day'
+            }
+          }]
+        }
+      }
+    });
+  </script>
+</body>
+</html>
